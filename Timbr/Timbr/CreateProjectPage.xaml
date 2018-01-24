@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:Converters="clr-namespace:Timbr.Converters;assembly=Timbr"
+             x:Class="Timbr.CreateProjectPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Converters:IntEnumConverter x:Key="IntEnum" />
+            <Converters:DateTimeToTimeSpanConverter x:Key="DateTimeConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness">
+            <On Platform="iOS" Value="20, 40, 20, 20" />
+            <On Platform="Android, WinPhone, Windows" Value="20" />
+        </OnPlatform>
+    </ContentPage.Padding>
+
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Orientation="Vertical" Spacing="15">
+                <Label Text="Project Type"/>
+                <Picker ItemsSource="{Binding ProjectTypes}" SelectedIndex="{Binding SelectedProjectType, Converter=IntEnum}" />
+                <Label Text="Name" />
+                <Entry Text="{Binding ProjectName, Mode=TwoWay}"/>
+                <Label Text="Start Date" />
+                <DatePicker Date="{Binding ProjectStartDate, Mode=TwoWay}"/>
+                <Label Text="Estimated End Date" />
+                <DatePicker Date="{Binding ProjectEstimatedEndDate, Mode=TwoWay}"/>
+                <Button x:Name="createProjectButton" Text="Create Project" Clicked="OnCreateProjectClick" />
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
