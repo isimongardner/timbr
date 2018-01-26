@@ -43,5 +43,40 @@ namespace Timbr.Data
             var query = string.Format("SELECT * FROM [Project] WHERE StartDate > '{0}'", now);
             return _database.QueryAsync<Timbr.Entities.Project>(query);
         }
+
+        public Task<int> CreateProject(Timbr.Entities.Project project)
+        {
+            if (project.Id != 0)
+            {
+                return _database.UpdateAsync(project);
+            }
+            else
+            {
+                return _database.InsertAsync(project);
+            }
+
+        }
+
+        public Task<int> CreateTask(Timbr.Entities.Task task)
+        {
+            if (task.Id != 0)
+            {
+                return _database.UpdateAsync(task);
+            }
+            else
+            {
+                return _database.InsertAsync(task);
+            }
+        }
+
+        public Task<int> DeleteProject(Timbr.Entities.Project project)
+        {
+            return _database.DeleteAsync(project);
+        }
+
+        public Task<int> DeleteProject(Timbr.Entities.Task task)
+        {
+            return _database.DeleteAsync(task);
+        }
     }
 }

@@ -2,7 +2,15 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Timbr"
+             xmlns:Converters="clr-namespace:Timbr.Converters;assembly=Timbr"
              x:Class="Timbr.MainPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Converters:IntEnumConverter x:Key="IntEnum" />
+            <Converters:DateTimeToTimeSpanConverter x:Key="DateTimeConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness">
@@ -14,5 +22,25 @@
     <StackLayout>
         <Button x:Name="createProjectButton" Text="Create Project" Clicked="OnCreateProjectClick" />
         <Button x:Name="createTaskButton" Text="Create Task" Clicked="OnCreateTaskClick" />
+
+        <ListView x:Name="ProjectView">
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout BackgroundColor="#eee"
+                        Orientation="Vertical">
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{Binding Name}"
+                                TextColor="#f35e20" />
+                                <Label Text="{Binding StartDate}"
+                                HorizontalOptions="EndAndExpand"
+                                TextColor="#503026" />
+                            </StackLayout>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </StackLayout>
 </ContentPage>

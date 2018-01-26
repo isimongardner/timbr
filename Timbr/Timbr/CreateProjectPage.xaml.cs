@@ -21,8 +21,16 @@ namespace Timbr
 
         private async void OnCreateProjectClick(object sender, EventArgs e)
         {
-            var view = (CreateProjectView)this.BindingContext;
-            var name = view.ProjectName;
+            await App.Database.CreateProject(new Entities.Project
+            {
+                Name = _view.ProjectName,
+                StartDate = _view.ProjectStartDate,
+                EstimatedEndDate = _view.ProjectEstimatedEndDate
+            });
+
+            await DisplayAlert("Created", string.Format("Project {0} created", _view.ProjectName), "Ok");
+
+            await Navigation.PopToRootAsync(true);
         }
     }
 }
