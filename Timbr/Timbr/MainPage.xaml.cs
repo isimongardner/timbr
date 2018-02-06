@@ -6,15 +6,15 @@ using Autofac;
 namespace Timbr
 {
     public partial class MainPage : ContentPage
-	{
+    {
         private MainView _view;
 
-		public MainPage(MainView view)
-		{
-			InitializeComponent();
+        public MainPage(MainView view)
+        {
+            InitializeComponent();
 
             _view = view;
-		}
+        }
 
         protected override void OnAppearing()
         {

@@ -10,14 +10,14 @@ using Xamarin.Forms.Xaml;
 
 namespace Timbr
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class CreateTaskPage : ContentPage
-	{
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class CreateTaskPage : ContentPage
+    {
         private CreateTaskView _view;
-		public CreateTaskPage (CreateTaskView view)
-		{
+        public CreateTaskPage(CreateTaskView view)
+        {
             _view = view;
-			InitializeComponent ();
+            InitializeComponent();
         }
 
         protected override void OnAppearing()

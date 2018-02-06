@@ -9,16 +9,16 @@ using Timbr.Views;
 
 namespace Timbr
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class CreateProjectPage : ContentPage
-	{
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class CreateProjectPage : ContentPage
+    {
         private readonly CreateProjectView _view;
 
-        public CreateProjectPage (CreateProjectView view)
-		{
-			InitializeComponent ();
+        public CreateProjectPage(CreateProjectView view)
+        {
+            InitializeComponent();
             this.BindingContext = _view = view;
-		}
+        }
 
         private async void OnCreateProjectClick(object sender, EventArgs e)
         {
