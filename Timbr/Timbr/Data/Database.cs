@@ -3,12 +3,21 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Timbr.Interfaces;
+using Timbr.Resources;
 
 namespace Timbr.Data
 {
-    public class Database
+    public class Database : IDatabase
     {
         private readonly SQLiteAsyncConnection _database;
+
+        public Database(IFileHelper fileHelper)
+        {
+            _database = new SQLiteAsyncConnection(fileHelper.GetLocalFilePath("Timbr.db3"));
+            _database.CreateTableAsync<Timbr.Entities.Project>().Wait();
+            _database.CreateTableAsync<Timbr.Entities.Task>().Wait();
+        }
 
         public Database(string databasePath)
         {
@@ -40,7 +49,7 @@ namespace Timbr.Data
         public Task<List<Timbr.Entities.Project>> FetchPendingProjects()
         {
             var now = DateTime.Now.ToString();
-            var query = string.Format("SELECT * FROM [Project] WHERE StartDate > '{0}'", now);
+            var query = string.Format(DatabaseQueries.SelectPendingProjects, now);
             return _database.QueryAsync<Timbr.Entities.Project>(query);
         }
 

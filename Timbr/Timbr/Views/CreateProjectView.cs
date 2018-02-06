@@ -1,36 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Timbr.Types;
 using Timbr.Extensions;
+using Timbr.Services;
+using Timbr.Types;
 
 namespace Timbr.Views
 {
     public class CreateProjectView
     {
-        private ProjectType _projectType;
-        private string _projectName;
-        private DateTime _projectStartDate;
-        private DateTime _projectEstimatedEndDate;
-
-        public CreateProjectView()
-        {
-            _projectStartDate = DateTime.Now;
-            _projectEstimatedEndDate = DateTime.Now;
-        }
-
-        public ProjectType SelectedProjectType
-        {
-            get
-            {
-                return _projectType;
-            }
-            set
-            {
-                _projectType = value;
-            }
-        }
+        private readonly IProjectService _projectService;
+        public string ProjectName { get; set; }
+        public DateTime ProjectStartDate { get; set; }
+        public DateTime ProjectEstimatedEndDate { get; set; }
+        public ProjectType SelectedProjectType { get; set; }
 
         public IList<string> ProjectTypes
         {
@@ -40,40 +23,17 @@ namespace Timbr.Views
             }
         }
 
-        public string ProjectName
+        public CreateProjectView(IProjectService projectService)
         {
-            get
-            {
-                return _projectName;
-            }
-            set
-            {
-                _projectName = value;
-            }
+            _projectService = projectService;
+
+            ProjectStartDate = DateTime.Now;
+            ProjectEstimatedEndDate = DateTime.Now;
         }
 
-        public DateTime ProjectStartDate
+        public void CreateProject()
         {
-            get
-            {
-                return _projectStartDate;
-            }
-            set
-            {
-                _projectStartDate = value;
-            }
-        }
-
-        public DateTime ProjectEstimatedEndDate
-        {
-            get
-            {
-                return _projectEstimatedEndDate;
-            }
-            set
-            {
-                _projectEstimatedEndDate = value;
-            }
+            _projectService.CreateProject(ProjectName, ProjectStartDate, ProjectEstimatedEndDate);
         }
     }
 }

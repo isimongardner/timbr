@@ -1,22 +1,26 @@
-﻿using System;
+﻿using Autofac;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Timbr.Data;
 using Timbr.Interfaces;
+using Timbr.Views;
 using Xamarin.Forms;
 
 namespace Timbr
 {
 	public partial class App : Application
 	{
-        private static Database _database;
+        public static IContainer Dependencies { get; private set; }
 
-		public App ()
+        public App (ApplicationSetup setup)
 		{
 			InitializeComponent();
-            MainPage = new NavigationPage(new MainPage());
-			//MainPage = new Timbr.MainPage();
+
+            Dependencies = setup.InitializeContainer();
+
+            MainPage = new NavigationPage(App.Dependencies.Resolve<MainPage>());
 		}
 
 		protected override void OnStart ()
@@ -33,16 +37,5 @@ namespace Timbr
 		{
 			// Handle when your app resumes
 		}
-
-        public static Database Database
-        {
-            get
-            {
-                if (_database == null)
-                    _database = new Database(DependencyService.Get<IFileHelper>().GetLocalFilePath("Timbr.db3"));
-
-                return _database;
-            }
-        }
 	}
 }

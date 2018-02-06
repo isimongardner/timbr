@@ -1,45 +1,35 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Timbr.Views.Items;
+using Timbr.Views;
 using Xamarin.Forms;
+using Autofac;
 
 namespace Timbr
 {
-	public partial class MainPage : ContentPage
+    public partial class MainPage : ContentPage
 	{
-        private List<ProjectItem> _projects;
+        private MainView _view;
 
-		public MainPage()
+		public MainPage(MainView view)
 		{
 			InitializeComponent();
-            Initialize();
+
+            _view = view;
 		}
 
-        public async void Initialize()
+        protected override void OnAppearing()
         {
-            _projects = new List<ProjectItem>();
-
-            var projects = await App.Database.FetchProjects();
-
-            foreach(var project in projects)
-            {
-                _projects.Add(new ProjectItem { Id = project.Id, Name = project.Name, StartDate = project.StartDate });
-            }
-
-            ProjectView.ItemsSource = _projects;
+            base.OnAppearing();
+            ProjectView.ItemsSource = _view.Projects;
         }
 
         private async void OnCreateProjectClick(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new CreateProjectPage());
+            await Navigation.PushAsync(App.Dependencies.Resolve<CreateProjectPage>());
         }
 
         private async void OnCreateTaskClick(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new CreateTaskPage());
+            await Navigation.PushAsync(App.Dependencies.Resolve<CreateTaskPage>());
         }
 
     }

@@ -14,34 +14,21 @@ namespace Timbr
 	public partial class CreateTaskPage : ContentPage
 	{
         private CreateTaskView _view;
-		public CreateTaskPage ()
+		public CreateTaskPage (CreateTaskView view)
 		{
+            _view = view;
 			InitializeComponent ();
-            Initialize();
         }
 
-        private async void Initialize()
+        protected override void OnAppearing()
         {
-             _view = new CreateTaskView();
-
-            var projects = await App.Database.FetchProjects();
-
-            foreach(var project in projects)
-            {
-                _view.Projects.Add(new ProjectItem { Id = project.Id, Name = project.Name, StartDate = project.StartDate });
-            }
-
+            base.OnAppearing();
             this.BindingContext = _view;
         }
 
         private async void OnCreateTaskClick(object sender, EventArgs e)
         {
-            await App.Database.CreateTask(new Entities.Task
-            {
-                Name = _view.TaskName,
-                ProjectId = _view.SelectedProject.Id,
-                NumberOfDays = _view.NumberOfDays
-            });
+            _view.CreateTask();
 
             await DisplayAlert("Created", string.Format("Task {0} created", _view.TaskName), "Ok");
             await Navigation.PopToRootAsync(true);

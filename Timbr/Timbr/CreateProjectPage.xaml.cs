@@ -13,20 +13,16 @@ namespace Timbr
 	public partial class CreateProjectPage : ContentPage
 	{
         private readonly CreateProjectView _view;
-        public CreateProjectPage ()
+
+        public CreateProjectPage (CreateProjectView view)
 		{
 			InitializeComponent ();
-            this.BindingContext = _view = new CreateProjectView();
+            this.BindingContext = _view = view;
 		}
 
         private async void OnCreateProjectClick(object sender, EventArgs e)
         {
-            await App.Database.CreateProject(new Entities.Project
-            {
-                Name = _view.ProjectName,
-                StartDate = _view.ProjectStartDate,
-                EstimatedEndDate = _view.ProjectEstimatedEndDate
-            });
+            _view.CreateProject();
 
             await DisplayAlert("Created", string.Format("Project {0} created", _view.ProjectName), "Ok");
 
