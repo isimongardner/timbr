@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using Timbr.Services;
 using Timbr.Views.Items;
 
 namespace Timbr.Views
 {
-    public class CreateTaskView
+    public class CreateTaskView : ApplicationView, INotifyPropertyChanged
     {
         private readonly IProjectService _projectService;
         public ObservableCollection<ProjectItem> Projects { get; set; }

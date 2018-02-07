@@ -23,8 +23,9 @@
         <Button x:Name="createProjectButton" Text="Create Project" Clicked="OnCreateProjectClick" />
         <Button x:Name="createTaskButton" Text="Create Task" Clicked="OnCreateTaskClick" />
 
-        <ListView x:Name="ProjectView">
+        <Label Text="{Binding SomeThing}" />
 
+        <ListView x:Name="ProjectView" ItemsSource="{Binding Projects}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>

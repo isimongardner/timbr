@@ -13,7 +13,8 @@ namespace Timbr
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CreateTaskPage : ContentPage
     {
-        private CreateTaskView _view;
+        private readonly CreateTaskView _view;
+
         public CreateTaskPage(CreateTaskView view)
         {
             _view = view;

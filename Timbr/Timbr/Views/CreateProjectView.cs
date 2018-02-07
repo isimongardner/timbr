@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Timbr.Extensions;
 using Timbr.Services;
@@ -7,7 +8,7 @@ using Timbr.Types;
 
 namespace Timbr.Views
 {
-    public class CreateProjectView
+    public class CreateProjectView : ApplicationView, INotifyPropertyChanged
     {
         private readonly IProjectService _projectService;
         public string ProjectName { get; set; }

@@ -7,19 +7,23 @@ namespace Timbr
 {
     public partial class MainPage : ContentPage
     {
-        private MainView _view;
+        private MainView View
+        {
+            get
+            {
+                return (MainView)this.BindingContext;
+            }
+        }
 
         public MainPage(MainView view)
         {
             InitializeComponent();
-
-            _view = view;
+            this.BindingContext = view;
         }
 
         protected override void OnAppearing()
         {
-            base.OnAppearing();
-            ProjectView.ItemsSource = _view.Projects;
+            View.Update();
         }
 
         private async void OnCreateProjectClick(object sender, EventArgs e)
@@ -31,6 +35,5 @@ namespace Timbr
         {
             await Navigation.PushAsync(App.Dependencies.Resolve<CreateTaskPage>());
         }
-
     }
 }
