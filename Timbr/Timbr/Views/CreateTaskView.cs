@@ -6,7 +6,7 @@ using Timbr.Views.Items;
 
 namespace Timbr.Views
 {
-    public class CreateTaskView : ApplicationView, INotifyPropertyChanged
+    public class CreateTaskView : ApplicationView, INotifyPropertyChanged, IApplicationView
     {
         private readonly IProjectService _projectService;
         public ObservableCollection<ProjectItem> Projects { get; set; }
@@ -18,15 +18,16 @@ namespace Timbr.Views
         public CreateTaskView(IProjectService projectService)
         {
             _projectService = projectService;
-            InitializeAsync();
+            Update();
         }
 
-        public async void InitializeAsync()
+        public override async void Update()
         {
             Projects = await _projectService.FetchProjectItems();
+            OnPropertyChanged("Projects");
         }
 
-        public void CreateTask()
+        public override void Create()
         {
             _projectService.CreateTask(TaskName, SelectedProject.Id, NumberOfDays);
         }

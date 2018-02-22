@@ -1,19 +1,13 @@
-﻿using System;
+﻿using Autofac;
+using System;
 using Timbr.Views;
 using Xamarin.Forms;
-using Autofac;
 
 namespace Timbr
 {
     public partial class MainPage : ContentPage
     {
-        private MainView View
-        {
-            get
-            {
-                return (MainView)this.BindingContext;
-            }
-        }
+        private MainView View { get { return (MainView)this.BindingContext; } }
 
         public MainPage(MainView view)
         {

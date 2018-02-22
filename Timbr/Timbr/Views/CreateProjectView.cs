@@ -8,7 +8,7 @@ using Timbr.Types;
 
 namespace Timbr.Views
 {
-    public class CreateProjectView : ApplicationView, INotifyPropertyChanged
+    public class CreateProjectView : ApplicationView, INotifyPropertyChanged, IApplicationView
     {
         private readonly IProjectService _projectService;
         public string ProjectName { get; set; }
@@ -32,7 +32,7 @@ namespace Timbr.Views
             ProjectEstimatedEndDate = DateTime.Now;
         }
 
-        public void CreateProject()
+        public override void Create()
         {
             _projectService.CreateProject(ProjectName, ProjectStartDate, ProjectEstimatedEndDate);
         }

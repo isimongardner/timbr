@@ -2,7 +2,7 @@
 
 namespace Timbr.Views
 {
-    public abstract class ApplicationView : INotifyPropertyChanged
+    public abstract class ApplicationView : INotifyPropertyChanged, IApplicationView
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -10,5 +10,8 @@ namespace Timbr.Views
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public virtual void Update() { }
+        public virtual void Create() { }
     }
 }

@@ -12,19 +12,19 @@ namespace Timbr
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CreateProjectPage : ContentPage
     {
-        private readonly CreateProjectView _view;
+        private CreateProjectView View { get { return (CreateProjectView)this.BindingContext; } }
 
         public CreateProjectPage(CreateProjectView view)
         {
             InitializeComponent();
-            this.BindingContext = _view = view;
+            this.BindingContext = view;
         }
 
         private async void OnCreateProjectClick(object sender, EventArgs e)
         {
-            _view.CreateProject();
+            View.Create();
 
-            await DisplayAlert("Created", string.Format("Project {0} created", _view.ProjectName), "Ok");
+            await DisplayAlert("Created", string.Format("Project {0} created", View.ProjectName), "Ok");
 
             await Navigation.PopToRootAsync(true);
         }

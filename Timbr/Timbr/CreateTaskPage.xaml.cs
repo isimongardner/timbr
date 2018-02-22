@@ -13,25 +13,24 @@ namespace Timbr
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CreateTaskPage : ContentPage
     {
-        private readonly CreateTaskView _view;
+        private CreateTaskView View { get { return (CreateTaskView)this.BindingContext; } }
 
         public CreateTaskPage(CreateTaskView view)
         {
-            _view = view;
             InitializeComponent();
+            this.BindingContext = view;
         }
 
         protected override void OnAppearing()
         {
-            base.OnAppearing();
-            this.BindingContext = _view;
+            View.Update();
         }
 
         private async void OnCreateTaskClick(object sender, EventArgs e)
         {
-            _view.CreateTask();
+            View.Create();
 
-            await DisplayAlert("Created", string.Format("Task {0} created", _view.TaskName), "Ok");
+            await DisplayAlert("Created", string.Format("Task {0} created", View.TaskName), "Ok");
             await Navigation.PopToRootAsync(true);
         }
     }
